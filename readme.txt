@@ -43,5 +43,5 @@ Activate the plugin. Look for "Ajax Contact Form" in the admin menu.
 
 == Changelog ==
   
-= 1.0.1 =
+= 1.0.0 =
 * Initial Release
