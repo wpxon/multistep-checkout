@@ -77,16 +77,14 @@ class Menu {
         return $settings_fields;
     }
 
-    function plugin_page() {
-        // echo '<div class="wrap">';
+    function plugin_page() { 
         echo '<div class="postbox">';
         echo '<h1 class="wp-heading-inline"> '.__('MultiStep Checkout','multistep-checkout').' </h1>';
 
         $this->settings_api->show_navigation();
         $this->settings_api->show_forms();
 
-        echo '</div>';
-        // echo '</div>';
+        echo '</div>'; 
     }
  
 }
