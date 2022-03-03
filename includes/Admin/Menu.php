@@ -11,7 +11,6 @@ class Menu {
 
     function __construct() {
         $this->settings_api = new Settings_API;
-
         add_action( 'admin_init', array($this, 'admin_init') );
         add_action( 'admin_menu', array($this, 'admin_menu') );
     }
@@ -28,8 +27,8 @@ class Menu {
 
     function admin_menu() {
       add_menu_page( 
-        __( 'MultiStep Checkout', 'multistep-checkout' ),
-        __( 'MultiStep Checkout', 'multistep-checkout' ), 
+        esc_html__( 'MultiStep Checkout', 'multistep-checkout' ),
+        esc_html__( 'MultiStep Checkout', 'multistep-checkout' ), 
         'manage_options',
         'multistep-checkout',
         [$this, 'plugin_page'],
@@ -42,7 +41,7 @@ class Menu {
         $sections = array( 
             array(
                 'id'    => 'wpx_styles',
-                'title' => __( 'Button Styles', 'multistep-checkout' ),
+                'title' => esc_html__( 'Button Styles', 'multistep-checkout' ),
                 'desc'  => ''
             ) 
         );
@@ -59,15 +58,15 @@ class Menu {
             'wpx_styles' => array(
                 array(
                     'name'    => 'btn_text_color',
-                    'label'   => __( 'Text Color', 'multistep-checkout' ),
-                    'desc'    => __( 'Select color for button text.', 'multistep-checkout' ),
+                    'label'   => esc_html__( 'Text Color', 'multistep-checkout' ),
+                    'desc'    => esc_html__( 'Select color for button text.', 'multistep-checkout' ),
                     'type'    => 'color',
                     'default' => '#333'
                 ), 
                 array(
                     'name'    => 'btn_bg_color',
-                    'label'   => __( 'Background Color', 'multistep-checkout' ),
-                    'desc'    => __( 'Select background color for button background.', 'multistep-checkout' ),
+                    'label'   => esc_html__( 'Background Color', 'multistep-checkout' ),
+                    'desc'    => esc_html__( 'Select background color for button background.', 'multistep-checkout' ),
                     'type'    => 'color',
                     'default' => '#fdd922'
                 )
@@ -79,11 +78,9 @@ class Menu {
 
     function plugin_page() { 
         echo '<div class="postbox">';
-        echo '<h1 class="wp-heading-inline"> '.__('MultiStep Checkout','multistep-checkout').' </h1>';
-
+        echo '<h1 class="wp-heading-inline"> '.esc_html__('MultiStep Checkout','multistep-checkout').' </h1>';
         $this->settings_api->show_navigation();
         $this->settings_api->show_forms();
-
         echo '</div>'; 
     }
  

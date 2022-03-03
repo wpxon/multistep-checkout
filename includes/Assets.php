@@ -22,15 +22,15 @@ class Assets {
 		?>
 		<style>
 			.one-page-checkout .active .step-title{
-				border-color: <?php echo $bgColor; ?>;
+				border-color: <?php echo esc_attr($bgColor); ?>;
 			}
 			.one-page-checkout .active .step-title .number{
-				background-color: <?php echo $bgColor; ?>;
-				color: <?php echo $color; ?> !important;
+				background-color: <?php echo esc_attr( $bgColor ); ?>;
+				color: <?php echo esc_attr( $color ); ?> !important;
 			}
 			.one-page-checkout button{
-				background-color: <?php echo $bgColor; ?> !important;
-				color: <?php echo $color; ?> !important;
+				background-color: <?php echo esc_attr( $bgColor ); ?> !important;
+				color: <?php echo esc_attr( $color ); ?> !important;
 			}
 		</style>		
 		<?php
@@ -56,24 +56,18 @@ class Assets {
 	}
 
 	public function enqueue_assets() {
- 
+		// scripts.
 		$scripts = $this->get_scripts();
-
 		foreach ($scripts as $handler => $script) {
 			$deps = isset( $script['deps'] ) ? $script['deps'] : false;	// dependencis	
 			$load = isset( $script['load'] ) ? $script['load'] : true;	// load on header or footer
-
 			wp_register_script( $handler, $script['src'], $deps, $script['version'], $load );
 		}
-
-
-
-
+ 
+		// styles
 		$styles = $this->get_styles();
-
 		foreach ($styles as $handler => $style) {
 			$deps = isset( $style['deps'] ) ? $style['deps'] : false;	// dependencis	 
-
 			wp_register_style( $handler, $style['src'], $deps, $style['version'] );
 		}
  

@@ -33,12 +33,9 @@ final class MultiStep_Checkout {
 	 */
 	function __construct() {
 		$this->define_constants();
-
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
-
 		add_action( 'plugins_loaded', array( $this, 'init_plugin' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'settings_action' ) );
-		// add_action('admin_init', [ $this, 'plugin_redirect']);
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'settings_action' ) ); 
 		add_filter( 'woocommerce_locate_template', array( $this, 'load_checkout_template' ), 10, 3 );
 
 	}
@@ -90,12 +87,11 @@ final class MultiStep_Checkout {
 	 */
 	public function activate() {
 		// save version.
-		$installed = get_option( 'wcr_installed' );
+		$installed = get_option( 'msc_installed' );
 		if ( ! $installed ) {
-			update_option( 'wcr_installed', time() );
+			update_option( 'msc_installed', time() );
 		}
-		update_option( 'wcr_version', MSC_VERSION );
-		add_option( 'do_activation_redirect', true );
+		update_option( 'msc_version', MSC_VERSION ); 
 	}
 
 	/**
@@ -107,21 +103,6 @@ final class MultiStep_Checkout {
 		$settings_link = '<a href="admin.php?page=multistep-checkout">Settings</a>';
 		array_unshift( $links, $settings_link );
 		return $links;
-	}
-
-	/**
-	 * redirect to settings page after activation
-	 *
-	 * @return void
-	 */
-	public function plugin_redirect() {
-		if ( get_option( 'do_activation_redirect', false ) ) {
-			delete_option( 'do_activation_redirect' );
-			if ( ! isset( $_GET['activate-multi'] ) ) {
-				wp_redirect( admin_url( '/admin.php?page=multistep-checkout' ) );
-				// exit;
-			}
-		}
 	}
 
 	/**
@@ -139,13 +120,10 @@ final class MultiStep_Checkout {
 	}
 
 	public function woo_actions() {
-
 		remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 		add_action( 'woocommerce_checkout_after_order_review', 'woocommerce_checkout_payment', 20 );
-
 		remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_login_form', 10 );
 		remove_action( 'woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10 );
-
 	}
 }
 
